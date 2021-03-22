@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Borow Books
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1 class="text-center text-primary my-4  font-weight-bold">Borrow {{ item.bookname }} Book</h1>
+<div class="container">
+            <hr class="bg-dark" style="height: 2px;, width: 90% ;">
+                <br>
+</div>
+<div class="container d-flex justify-content-around">
+  <h3>You need to pay $5 to Borrow {{ item.bookname }} Book : </h3>
+  
+    <!-- Set up a container element for the button -->
+    <div id="paypal-button-container"></div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ASmLawd8iHyVjP3LzY9aPzdKRgwsI9vO61dFHpJc1xB6Ylw_6QOJgITQ4SKW7jJHvvz5676ZCGELn5n5&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '5'
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed!');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+</div>
+        <div class="container">
+            <hr class="bg-dark" style="height: 2px;, width: 90% ;">
+                <br>
+        </div>
+<form method="post">
+{% csrf_token %}
+  <br>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required><br>
+  </div>
+
+    <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required><br>
+  </div>
+    
+    <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your Phone Number" required><br>
+  </div>
+
+    <div class="form-group">
+    <label for="emailid">Email address of Owner</label>
+    <input class="form-control" type="text" name="emailid" id="staticEmail" value={{item.email_id}} readonly><br>
+  </div>
+
+    
+  
+
+  <button class="btn btn-primary" type="submit">Submit</button>
+
+</form>
+
+
+
+
+{% endblock %}

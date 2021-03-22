@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Add New Book
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container heading-container text-center">
+    <h3>ADD NEW BOOK
+    </h3>
+</div>
+<br>
+<div class="container">
+            <hr class="bg-dark" style="height: 2px;, width: 90% ;">
+                
+</div>
+<br>
+<div class="container">
+<form action="{% url 'add' %}" method="post" enctype="multipart/form-data" class="form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="form-group">
+        <label for="{{ form.name.id_for_label }}">Name: </label>
+        {{ form.name }}
+        {{ form.name.errors }}
+    </div>
+    <br>
+        <div class="form-group">
+        <label for="{{ form.email_id.id_for_label }}">Email Id: </label>
+        {{ form.email_id }}
+        {{ form.email_id.errors }}
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="{{ form.bookname.id_for_label }}">Name of the Book: </label>
+        {{ form.bookname }}
+        {{ form.bookname.errors }}
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="{{ form.description.id_for_label }}">Short Summary of the Book: </label>
+        {{ form.description }}
+        {{ form.description.errors }}
+    </div>
+
+    <br>
+    <div class="form-group">
+        <label for="{{ form.picture.id_for_label }}">Picture of the Book: </label>
+        {{ form.picture }}
+        {{ form.picture.errors }}
+    </div>
+    <br>
+    <input id ="btnSubmit" class="btn btn-primary" type="submit" value="Submit">
+</form>
+</div>
+{% endblock %}

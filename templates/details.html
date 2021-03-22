@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Details of Selected Book
+{% endblock %}
+
+{% block body %}
+<div class="container article-container">
+<br>
+    <h2 class="text-danger text-center"><strong>{{ item.bookname }}</strong></h2>
+
+    <div class="container">
+            <hr class="bg-dark" style="height: 2px;, width: 90% ;">
+                
+    </div>
+    <br>
+    <img src="{{ item.picture.url }}" alt="loading...">
+    <p><br>
+        <strong>Owner of the Book: </strong>{{ item.name }}
+    </p>
+    <p>
+        <strong>Short Summary of the Book: </strong>{{ item.description }}
+    </p>
+    <p>
+        <strong>Contact: </strong>{{ item.email_id }}
+    </p>
+    <p>
+        <a href="{% url 'borow' item.id %}" class="btn btn-primary btn-lg">Borrow Book</a>
+    </p>
+</div>
+<br>
+
+{% endblock %}

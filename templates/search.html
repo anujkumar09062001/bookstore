@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Search Portal
+{% endblock %}
+
+{% block body %}
+<div class="container heading-container text-center">
+    <br>
+
+
+    <form class="form-inline" method="get" action="/search">
+  <div class="form-group my-2">
+    <input type="text" class="form-control" id="search" name="search" placeholder="Search for Book">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Search</button>
+</form>
+<br>
+<h2 class="text-danger ">Search Results:</h2>
+</div>
+<div class="container">
+            <hr class="bg-dark" style="height: 2px;, width: 90% ;">
+                
+</div>
+<div class="album py-5 bg-light">
+<div class="container">
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for item in items %}
+<div class="col">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src='{{ item.picture.url }}' alt="loading..." class='lost-item'>
+  <div class="card-body">
+    <h5 class="card-title">{{ item.bookname }}</h5>
+    <p class="card-text">{{item.description}}</p>
+    <a href="{% url 'details' item.id %}" class="btn btn-primary stretched-link">Details</a>
+  </div>
+</div>
+</div>
+{% empty %}
+    <h2>No found Items to display.</h2>
+{% endfor  %} 
+</div>
+</div>
+</div>
+
+{% endblock %}
